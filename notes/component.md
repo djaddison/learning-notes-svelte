@@ -1,14 +1,16 @@
-## Component design
-
+##  Component design
+  
+  
 - allow for simple expression of visuals
 - prioritize composition of components
 - prioritize web standards
 - acknowledge that custom/native web components are overly complicated and the code is verbose
 - it should be easy for a developer with little knowledge of the component library to create a new component or derive from an existing one
 - prioritize simplification and readability
-
-## Question / Theory / Angle
-
+  
+##  Question / Theory / Angle
+  
+  
 - can compilers be used to
   - reduce complexity
   - reduce the amount of code that needs to be written
@@ -22,9 +24,10 @@
 - what would the maintenance and extendability look like if copying code was a property a component library?
 - is a highly abstracted (DRY) component library easier to extend and reuse?
 - what would happen if the theme or stylistic variations were not a property of the component?
-
-## Notes & Constraints
-
+  
+##  Notes & Constraints
+  
+  
 - css is a rule-based language that uses `selectors` to pattern match against the DOM
 - css selectors match against elements or parent element to child relationships
 - a common css pattern is to describe parent to child relationships. ex: `article h2`, `.list .list-item`
@@ -32,10 +35,10 @@
 - design systems describe an overarching visual language and pattern
 - parameters of a design systems are often implemented as a theme, css variables, or transpiled css
 - component design aims to be fully encapsulated
-
+  
   - implementations that are strict about encapsulation result in a discordance between css and components
   - coding patterns that are effective in css can break the encapsulation
-
+  
   ```css
   /**
    * Ex 1: Global CSS variables
@@ -50,7 +53,7 @@
     --color-product-accent: #ccc;
   }
   ```
-
+  
   ```css
   /**
    * Ex 2: The use of parent child relationship
@@ -68,7 +71,7 @@
     /* ... */
   }
   ```
-
+  
   ```css
   /**
    * Ex 3: Global CSS being used to set base parameters
@@ -81,11 +84,14 @@
     /* ... something global but breaks component encapsulation */
   }
   ```
-
-## Study: button component
-
-### Goal
-
+  
+  
+##  Study: button component
+  
+  
+###  Goal
+  
+  
 - that `Button` component has web standard `button` API/interfaces
   - to prevent re-declaring all tag specific attributes
   - to prevent re-declaring accessibility features (aria) and global attributes
@@ -94,9 +100,10 @@
 - allow for default values for attributes. Ex: Recommended practice for `<button type="button">` is to have `type` default to `button`
 - allow component to be extended or composed
 - to have a small amount of abstraction for when duplication would become a burden
-
-### Reference components
-
+  
+###  Reference components
+  
+  
 - Ant Design `Button`
   - https://ant.design/components/button
   - https://ant.design/components/button/#API
@@ -110,17 +117,21 @@
   - 186 lines of CSS: https://github.com/twbs/bootstrap/blob/main/scss/_buttons.scss
   - Difficult to read with a high degree of abstraction using scss
   - Unknown amount of scss code that is expressed using mixins and includes
-
-### S1: Fully encapsulated button
-
-#### Questions
-
+  
+  
+###  S1: Fully encapsulated button
+  
+  
+####  Questions
+  
+  
 - what does a component look like if abstractions were unwound and it was expressed in simple terms?
 - what if CSS optimizations were greatly reduced?
 - what if a single component represented a single visual instance?
-
-#### Notes
-
+  
+####  Notes
+  
+  
 - it is easy for a developer to understand, copy, or derive work from this component
 - this sample button reimplements an `antd` primary button
 - simple expression of a button in under 50 lines of code
@@ -130,20 +141,20 @@
 - `on:click` event listener is added even if consumer didn't request binding
 - visual design intention is harder to understand
 - reuse is awkward for component user since visual design is baked into the component. ex: It would be difficult to add or remove visual properties like `text-shadow`, `border-radius`, `transition`, or `box-shadow`. While the user could easily duplicate a simple button component and replace the styling, that might not be an option for complex components
-
-#### Code reference
-
-- https://codesandbox.io/s/svelete-component-s1-tj3n0u?file=/Button.svelte
-
+  
+####  Code reference
+  
+  
 ```svelte
+<!-- Button Example 1: Fully encapsulated button -->
 <script>
   export let type = "button";
 </script>
-
+  
 <button {type} {...$$props} on:click>
   <slot/>
 </button>
-
+  
 <style>
   button {
     background-color: #1890ff;
@@ -177,16 +188,16 @@
     border-color: #096dd9;
   }
 </style>
-```
-
+```  
+  
 ```svelte
 <script>
 	import Button from "./Button.svelte";
 </script>
-
+  
 <Button>S1: Button</Button>
 <Button on:click={()=> console.log("clicked")}>S1: Button with on:click</Button>
-
+  
 <!--
 	There is no clear way to express and scope css overrides
 <style>
@@ -198,7 +209,7 @@
 	}
 </style>
 -->
-
+  
 <!-- User is forced to provide overrides using global css -->
 <style>
 :global(button) {
@@ -215,26 +226,29 @@
 }
 </style>
 ```
-
-### S2: CSS simplification
-
-#### Questions
-
+  
+  
+###  S2: CSS simplification
+  
+  
+####  Questions
+  
+  
 - if design concerns are separated can the css be simplified?
 - why does a button have a same color or transparent border?
-
-#### Notes
-
+  
+####  Notes
+  
+  
 - further reduction in size to 34 lines of code
 - care should be taken to ensure correct heights if a component is expressed using padding + line-height + border
 - transparent borders and same color borders appear to be an artifact of abstraction. When dealing with a design system that has bordered, ghost, or other design variations, sizing can change if the size of the border is not consistent between all variants.
 - the default border properties of a `button` element is noted in the code reference section
 - changes allow for `transition` (`transition-property`) to be targeted more effectively
-
-#### Code reference
-
-- https://codesandbox.io/s/svelete-component-s2-i5u1gc?file=/Button.svelte
-
+  
+####  Code reference
+  
+  
 ```css
 /* user agent button properties in chrome */
 align-items: flex-start;
@@ -269,7 +283,7 @@ text-transform: none;
 word-spacing: normal;
 writing-mode: horizontal-tb !important;
 ```
-
+  
 ```css
 /* Removed properties */
 button {
@@ -289,7 +303,7 @@ button:active {
   border-color: #096dd9; /* no longer needed */
 }
 ```
-
+  
 ```css
 /* Properties that other frameworks define. It's unclear if they are needed */
 button {
@@ -299,16 +313,17 @@ button {
   white-space: nowrap; /* It's unclear if this is always desirable */
 }
 ```
-
+  
 ```svelte
+<!-- Button S2: CSS simplification -->
 <script>
   export let type = "button";
 </script>
-
+  
 <button {type} {...$$props} on:click>
   <slot/>
 </button>
-
+  
 <style>
   button {
     background-color: #1890ff;
@@ -335,18 +350,22 @@ button {
     background-color: #096dd9;
   }
 </style>
-```
-
-### S3: Property relationships
-
-#### Questions
-
+```  
+  
+  
+###  S3: Property relationships
+  
+  
+####  Questions
+  
+  
 - what css properties are related?
 - what properties would be related to a theme or design system?
 - what properties would be impacted by component variations?
-
-#### Notes
-
+  
+####  Notes
+  
+  
 - `button` height is often expressed as a combination of border + padding + line height
 - a design system often constrains the vertical pacing. ex: height of 32px
 - if `button` text (label) was allowed to flow to multiple lines, then `line-height` would impact the vertical pacing of the text
@@ -355,9 +374,10 @@ button {
 - a common design convention is to have `font-weight` be bolder when light color text is put on a dark color background
 - `box-shadow`, `text-shadow`, `transition` are highly stylistic and subjective. Their use is specific to the design atheistic of a given system and not universally applied
 - `border` properties are often expressed in context of a design system
-
-#### Code reference
-
+  
+####  Code reference
+  
+  
 ```css
 button {
   background-color: #1890ff; /* design system - interactive color or style variation */
@@ -384,12 +404,12 @@ button:active {
   background-color: #096dd9; /* design system - darker color */
 }
 ```
-
+  
 ```css
 /**
  * Grouping related properties
  */
-
+  
 /* Design system level properties */
 button {
   border-radius: 2px;
@@ -399,7 +419,7 @@ button {
   text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
   transition: background-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1); /* background-color is component specific */
 }
-
+  
 /* Common component level properties. Has relationship to vertical and horizontal spacing */
 button {
   border: unset;
@@ -410,7 +430,7 @@ button {
   vertical-align: middle;
   white-space: nowrap;
 }
-
+  
 /* Variation. Additional properties would be included for specific variations. ex: font-weight and border */
 button {
   background-color: #1890ff; /* Based on colors in the design system */
@@ -424,18 +444,30 @@ button:active {
   background-color: #096dd9; /* darker color */
 }
 ```
-
-### S4: Expressing colors using hwb()
-
+  
+  
+###  S4: Expressing colors using hwb()
+  
+  
+####  Questions
+  
+  
+####  Notes
+  
+  
+####  Code reference
+  
+  
 ```svelte
+<!-- Button S4: Expressing colors using hwb() -->
 <script>
   export let type = "button";
 </script>
-
+  
 <button {type} {...$$props} on:click>
   <slot/>
 </button>
-
+  
 <style>
   button {
     border: unset;
@@ -464,25 +496,31 @@ button:active {
     background: hwb(210deg 4% 15%);
   }
 </style>
-```
-
-### S4: Fully encapsulated button with custom properties
-
-#### Questions
-
-#### Notes
-
-#### Code reference
-
+```  
+  
+  
+###  S5: Fully encapsulated button with custom properties
+  
+  
+####  Questions
+  
+  
+####  Notes
+  
+  
+####  Code reference
+  
+  
 ```svelte
+<!-- Button S5: Fully encapsulated button with custom properties -->
 <script>
   export let type = "button";
 </script>
-
+  
 <button {type} {...$$props} on:click>
   <slot/>
 </button>
-
+  
 <style>
   button {
     --background-color-active: hwb(210deg 4% 15%);
@@ -494,21 +532,16 @@ button:active {
   button {
     background-color: var(--background-color);
     border-radius: 2px;
-    border: 1px solid var(--background-color);
+    border: unset;
     box-shadow: 0 2px #0000000b;
-    box-sizing: border-box;
     color: var(--color);
-    cursor: pointer;
-    display: inline-block;
     font-size: 14px;
     font-weight: 400;
     line-height: 24px;
     padding: 4px 16px;
-    position: relative;
-    text-align: center;
     text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
     touch-action: manipulation;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    transition: background-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     user-select: none;
     vertical-align: middle;
     white-space: nowrap;
@@ -523,4 +556,7 @@ button:active {
     background-color: var(--background-color-focus);
   }
 </style>
-```
+```  
+  
+  
+  

@@ -2,16 +2,24 @@
 
 #### Questions
 
-- if design concerns are separated can the css be simplified?
-- why does a button have a same color or transparent border?
+- can the css be simplified now that the css abstractions have been unwound and removed?
+- why does a button have borders with the same color as `background-color` or transparent?
 
 #### Notes
 
 - further reduction in size to 34 lines of code
 - care should be taken to ensure correct heights if a component is expressed using padding + line-height + border
-- transparent borders and same color borders appear to be an artifact of abstraction. When dealing with a design system that has bordered, ghost, or other design variations, sizing can change if the size of the border is not consistent between all variants.
 - the default border properties of a `button` element is noted in the code reference section
 - changes allow for `transition` (`transition-property`) to be targeted more effectively
+- the most plausible answer I could determine for the second question is that transparent or borders with the same color as `background-color` are related to `button` having a default user agent `border-width` and historical browser compatibility. It appears this has been in practice since bootstrap era css frameworks. This choice likely predates the `unset` value. Additionally, when dealing with a design system that has bordered, ghost, or other design variations, setting the border to transparent or the same color as the background might work around sizing issues where the size of the border impacts the dimensions of the button
+
+#### Future exploration
+
+- (to be continued...) why does a button have borders with the same color as `background-color` or transparent?
+- in code editor dx
+  - is there a mechanism that would flag css properties:values that are duplicating the user agent?
+  - it would be a great user experience to have a mechanism to flag properties so they can be removed
+  - it would also be useful to have something similar to in-browser dev tools "computed css" directly
 
 #### Code reference
 

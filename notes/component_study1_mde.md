@@ -15,7 +15,7 @@
 - only implements `on:click` event forwarding. Ideally, the component user would be able to bind to any `button` events
 - currently no means to represent all event bindings without explicitly listing all of events
 - `on:click` event listener is added even if consumer didn't request binding
-- visual design intention is harder to understand
+- visual design intention is harder to understand since properties are expressed with hard coded values. For example, the relationship to a design system is not conveyed in the code. There are no local code cues that hint the intention to the developer. They needs additional external context to know that `background-color: #1890ff;` refers to a design system color value
 - reuse is awkward for component user since visual design is baked into the component. ex: It would be difficult to add or remove visual properties like `text-shadow`, `border-radius`, `transition`, or `box-shadow`. While the user could easily duplicate a simple button component and replace the styling, that might not be an option for complex components
 
 #### Code reference

@@ -12,8 +12,8 @@
 - `button` height is often expressed as a combination of border + padding + line height
 - a design system often constrains the vertical pacing. ex: height of 32px
 - if `button` text (label) was allowed to flow to multiple lines, then `line-height` would impact the vertical pacing of the text
-- text that wraps would ideally have a `line-height` that maintains the vertical pacing convention of the design system. Out of context numbers would break the visual conventions. ex: content that is in two columns would potentially have misaligned vertical pacing
-- text needs to be legible and accessible, so the relative values of `background-color` and `color` is an important relationship
+- text that wraps would ideally have a `line-height` that maintains the vertical pacing convention of the design system. Out of context numbers would break the visual conventions. Ex: content that is in two side-by-side columns would potentially have misaligned vertical pacing of text
+- text needs to be legible and accessible, so the relative value of `background-color` and `color` forms an important relationship between the two properties
 - a common design convention is to have `font-weight` be bolder when light color text is put on a dark color background
 - `box-shadow`, `text-shadow`, `transition` are highly stylistic and subjective. Their use is specific to the design atheistic of a given system and not universally applied
 - `border` properties are often expressed in context of a design system
@@ -21,12 +21,12 @@
 #### Future exploration
 
 - are there in editor accessibility tools that will flag
-  - when the computed contrast of background-color and color fails to meet accessibly standards?
-  - when the computed font-size fails to meet accessibly standards?
-  - warn when a unit is used that doesn't match the visual pacing of the design system? A warning is often more appropriate, since there are many instances where a design will want to break out of the constraints of a grid system. For example, to combat optical illusions that make exact measurements appear incorrect
-- what convention should be used for when a designer wants to override a visual pacing convention?
-  - how does a person know if this is intentional or a typo?
-  - are there linting and linting overrides that might cover this?
+  - when the computed contrast of `background-color` and `color` fails to meet accessibly standards?
+  - when the computed `font-size` fails to meet accessibly standards?
+  - warn when a unit is used that doesn't match the visual pacing of the design system? A warning is often more appropriate, since there are many instances where a designer will want to break out of the constraints of a grid system. For example, to combat optical illusions that make exact measurements appear incorrect
+- what convention should be used to capture the intention when a designer wants to override a visual pacing convention of a design system?
+  - when another person reads the code, how does that person know if this is an intentional override or a typo?
+  - are there linting rules that might cover this?
 
 #### Code reference
 

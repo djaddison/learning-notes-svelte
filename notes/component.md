@@ -4,9 +4,9 @@
 - allow for simple expression of visuals
 - prioritize composition of components
 - prioritize web standards
-- acknowledge that custom/native web components are overly complicated and the code is verbose
 - it should be easy for a developer with little knowledge of the component library to create a new component or derive from an existing one
 - prioritize simplification and readability
+- reexamine custom/native web components. On first learning they appear overly complicated and the code is verbose
   
 ##  Question / Theory / Angle
   
@@ -126,21 +126,33 @@
   
   
 - what does a component look like if abstractions were unwound and it was expressed in simple terms?
-- what if CSS optimizations were greatly reduced?
+- what if CSS abstractions were greatly reduced?
 - what if a single component represented a single visual instance?
   
 ####  Notes
   
   
-- it is easy for a developer to understand, copy, or derive work from this component
+- the resulting component fits on a single screen!
+- simple expression of a button in *42* lines of code
+- removing a significant amount of css abstractions makes it easier to understand, copy, or derive work from this component
+- the amount of code reduction was surprising. *1290* down to *42*! This is a significant reduction and would have a dramatic positive impact on code maintainability. Even with the additional code needed for adding design variations, the savings would still be dramatic
+- when the css is stripped to its simplest form, it becomes more noticeable when properties aren't needed
 - this sample button reimplements an `antd` primary button
-- simple expression of a button in under 50 lines of code
-- while the `antd` button implements additional features, with approximately 1290 of code and broad/mixed concerns, it requires a developer to have a deep understanding of the code before making changes
+- while the `antd` button implements additional features, with approximately *1290* of code and broad/mixed concerns, it requires a developer to have a deep understanding of the code before making changes
 - only implements `on:click` event forwarding. Ideally, the component user would be able to bind to any `button` events
 - currently no means to represent all event bindings without explicitly listing all of events
 - `on:click` event listener is added even if consumer didn't request binding
-- visual design intention is harder to understand
+- visual design intention is harder to understand since properties are expressed with hard coded values. For example, the relationship to a design system is not conveyed in the code. There are no local code cues that hint the intention to the developer. They needs additional external context to know that `background-color: #1890ff;` refers to a design system color value
 - reuse is awkward for component user since visual design is baked into the component. ex: It would be difficult to add or remove visual properties like `text-shadow`, `border-radius`, `transition`, or `box-shadow`. While the user could easily duplicate a simple button component and replace the styling, that might not be an option for complex components
+  
+####  Future exploration
+  
+  
+- it's considered bad practice to copy code as a form of deriving work, so how would derivative components be created?
+- is there a simple way to extend a base component in Svelte? Ideally there would be a way to express a component as a composition of `<ButtonS1>` with additional css overrides
+- can event forwarding be expressed as a compile time binding?
+- can visual effects be composed in a different way? Visual effects are often tied to visual characteristics of a design system. Ideally, the components would be expressed in a way that would allow for adoption by a variety of design systems that have different visual needs. For example: `antd` wave, `material` ripple. The way components in frameworks such as `antd`, and `material` are expressed, the visual effects are coupled tightly to the components and css
+- can the css be simplified now that the css abstractions have been unwound and removed? **(Study 2)**
   
 ####  Code reference
   
@@ -234,17 +246,26 @@
 ####  Questions
   
   
-- if design concerns are separated can the css be simplified?
-- why does a button have a same color or transparent border?
+- can the css be simplified now that the css abstractions have been unwound and removed?
+- why does a button have borders with the same color as `background-color` or transparent?
   
 ####  Notes
   
   
 - further reduction in size to 34 lines of code
 - care should be taken to ensure correct heights if a component is expressed using padding + line-height + border
-- transparent borders and same color borders appear to be an artifact of abstraction. When dealing with a design system that has bordered, ghost, or other design variations, sizing can change if the size of the border is not consistent between all variants.
 - the default border properties of a `button` element is noted in the code reference section
 - changes allow for `transition` (`transition-property`) to be targeted more effectively
+- the most plausible answer I could determine for the second question is that transparent or borders with the same color as `background-color` are related to `button` having a default user agent `border-width` and historical browser compatibility. It appears this has been in practice since bootstrap era css frameworks. This choice likely predates the `unset` value. Additionally, when dealing with a design system that has bordered, ghost, or other design variations, setting the border to transparent or the same color as the background might work around sizing issues where the size of the border impacts the dimensions of the button
+  
+####  Future exploration
+  
+  
+- (to be continued...) why does a button have borders with the same color as `background-color` or transparent?
+- in code editor dx
+  - is there a mechanism that would flag css properties:values that are duplicating the user agent?
+  - it would be a great user experience to have a mechanism to flag properties so they can be removed
+  - it would also be useful to have something similar to in-browser dev tools "computed css" directly
   
 ####  Code reference
   
@@ -470,15 +491,9 @@ button:active {
   
 <style>
   button {
-    border: unset;
-    touch-action: manipulation;
-    user-select: none;
-    vertical-align: middle;
-    white-space: nowrap;
-  }
-  button {
     background-color: hwb(210deg 9% 0%);
     border-radius: 2px;
+    border: unset;
     box-shadow: 0 2px #0000000b;
     color: #ffffff;
     font-size: 14px;
@@ -486,7 +501,11 @@ button:active {
     line-height: 24px;
     padding: 4px 16px;
     text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    touch-action: manipulation;
     transition: background-color 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
   }
   button:focus,
   button:hover {
@@ -523,18 +542,11 @@ button:active {
   
 <style>
   button {
-    --background-color-active: hwb(210deg 4% 15%);
-    --background-color-focus: hwb(210deg 25% 0%);
-    --background-color-hover: hwb(210deg 25% 0%);
-    --background-color: hwb(210deg 9% 0%);
-    --color: #ffffff;
-  }
-  button {
-    background-color: var(--background-color);
+    background-color: var(--background-color, hwb(210deg 9% 0%));
     border-radius: 2px;
     border: unset;
     box-shadow: 0 2px #0000000b;
-    color: var(--color);
+    color: var(--color, #ffffff);
     font-size: 14px;
     font-weight: 400;
     line-height: 24px;
@@ -547,13 +559,107 @@ button:active {
     white-space: nowrap;
   }
   button:active {
-    background-color: var(--background-active);
+    background-color: var(--background-color-active, hwb(210deg 4% 15%));
   }
   button:focus {
-    background-color: var(--background-color-focus);
+    background-color: var(--background-color-focus, hwb(210deg 25% 0%));
   }
   button:hover {
-    background-color: var(--background-color-focus);
+    background-color: var(--background-color-hover, hwb(210deg 25% 0%));
+  }
+</style>
+```  
+  
+  
+###  S6: Methods of breaking encapsulation to apply global styling
+  
+  
+####  Questions
+  
+  
+####  Notes
+  
+  
+####  Code reference
+  
+  
+```css
+:root {
+  /* Typography */
+  --font-family: "Inter", sans-serif;
+  --font-size: 14px;
+  --line-height: 24px;
+  
+  --font-weight-thin: 100;
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --font-weight-black: 900;
+  
+  /* Colors */
+  --color-primary: hwb(210deg 9% 0%);
+  --color-primary-active: hwb(210deg 4% 15%);
+  --color-primary-focus: hwb(210deg 25% 0%);
+  --color-primary-hover: hwb(210deg 25% 0%);
+  --color-text-on-primary-bg: #ffffff;
+  
+  /* Spatial System */
+  --spatial-unit-half: 4px;
+  --spatial-unit: 8px;
+  --spatial-unit-2x: 16px;
+  --spatial-unit-4x: 32px;
+  
+  /* Shapes & Lines */
+  --border-radius: 2px;
+  --border-width: 1px;
+  
+  /* Visual Effects */
+  --box-shadow: 0 2px #0000000b;
+  --text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  --transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+```
+  
+```svelte
+<!-- Button S6a: Using global custom properties -->
+<script>
+  export let type = "button";
+</script>
+  
+<button {type} {...$$props} on:click>
+  <slot/>
+</button>
+  
+<style>
+  button {
+    background-color: var(--color-primary);
+    border-radius: var(--border-radius);
+    border: unset;
+    box-shadow: var(--box-shadow);
+    color: var(--color-text-on-primary-bg);
+    font-size: var(--font-size);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height);
+    padding: var(--spatial-unit-half) var(--spatial-unit-2x);
+    text-shadow: var(--text-shadow);
+    touch-action: manipulation;
+    transition: background-color var(--transition);
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
+  button:active {
+    background-color: var(--color-primary-active);
+  }
+  button:focus {
+    background-color: var(--color-primary-focus);
+  }
+  button:hover {
+    background-color: var(--color-primary-hover);
   }
 </style>
 ```  

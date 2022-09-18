@@ -3,9 +3,9 @@
 - allow for simple expression of visuals
 - prioritize composition of components
 - prioritize web standards
-- acknowledge that custom/native web components are overly complicated and the code is verbose
 - it should be easy for a developer with little knowledge of the component library to create a new component or derive from an existing one
 - prioritize simplification and readability
+- reexamine custom/native web components. On first learning they appear overly complicated and the code is verbose
 
 ## Question / Theory / Angle
 

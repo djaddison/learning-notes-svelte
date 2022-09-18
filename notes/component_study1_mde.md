@@ -3,7 +3,7 @@
 #### Questions
 
 - what does a component look like if abstractions were unwound and it was expressed in simple terms?
-- what if CSS optimizations were greatly reduced?
+- what if CSS abstractions were greatly reduced?
 - what if a single component represented a single visual instance?
 
 #### Notes

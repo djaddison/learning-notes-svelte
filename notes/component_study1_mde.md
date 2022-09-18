@@ -8,7 +8,7 @@
 
 #### Notes
 
-- the resulting component fits on a single screen!
+- the resulting code for the component fits on a single screen!
 - simple expression of a button in *42* lines of code
 - removing a significant amount of css abstractions makes it easier to understand, copy, or derive work from this component
 - the amount of code reduction is surprising. *1290* down to *42*! This is a significant reduction and would have a dramatic positive impact on code maintainability. Even with the additional code needed for adding design variations, the savings will still be dramatic

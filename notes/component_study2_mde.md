@@ -20,6 +20,9 @@
   - is there a mechanism that would flag css properties:values that are duplicating the user agent?
   - it would be a great user experience to have a mechanism to flag properties so they can be removed
   - it would also be useful to have something similar to in-browser dev tools "computed css" directly
+- is there a way to flag a css property as "don't know what's it's used for"? This might be useful for developers that are porting components but aren't certain under what condition the property is used. It could be something that was for legacy browser support and is no longer needed
+- what would be a clear way to communicate, in code, css properties that were added for the sake of browser compatibility? Could there be a way to express the relationship of the property to the browser that needs the fix? This would be useful for the long-term maintenance of a component library. Currently, most of that knowledge is gained through experiencing browser compatibility issues and is often retained by a single developer who authored or fixed the component
+- as browser standards improve, it would be useful to have a tool that flags properties that may no longer be needed
 
 #### Code reference
 

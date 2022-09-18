@@ -8,15 +8,14 @@
 
 #### Notes
 
-- the resulting code for the component fits on a single screen!
-- simple expression of a button in *42* lines of code
+- the resulting code for the sample component is *42* lines of code and fits on a single screen!
 - removing a significant amount of css abstractions makes it easier to understand, copy, or derive work from this component
 - the amount of code reduction is surprising. *1290* down to *42*! This is a significant reduction and would have a dramatic positive impact on code maintainability. Even with the additional code needed for adding design variations, the savings will still be dramatic
 - when the css is stripped to its simplest form, it becomes more noticeable when properties aren't needed
 - the sample button, in the code reference section, reimplements an `antd` primary button
 - while the `antd` button implements additional features, with approximately *1290* of code and broad/mixed concerns, it requires a developer to have a deep understanding of the code before making changes
-- in the sample button, the visual design intention is hard to understand since properties are expressed as hard coded values. The relationship to a design system is not conveyed in the code. There are no local code cues that convey the intention to the developer. For example, they needs additional external context to know that `background-color: #1890ff;` refers to a design system color value. It's also know that these hardcoded values are easy to mistype and keep synchronized across files
-- reuse is awkward for a component user since visual design assumptions are baked into the component. ex: If a component is intended to be used across multiple design systems, it would be difficult to add or remove visual properties like `text-shadow`, `border-radius`, `transition`, or `box-shadow`. While the user could easily duplicate a simple button component and replace the styling, that might not be an option for complex components. Additionally, any forked components have a series of other SDLC related complexities
+- in the sample button, the visual design intention is hard to understand since properties are expressed as hard coded values. The relationship to a design system is not conveyed in the code. There are no local code cues that convey the intention to the developer. For example, a developer needs additional external context to know that `background-color: #1890ff;` refers to a design system color value. It's also know that these hardcoded values are easy to mistype and keep synchronized across files
+- it was generally observed across all referenced component systems that extending or reuse is awkward for a component since visual design assumptions are baked into the component. ex: If a component is intended to be used across multiple design systems, it would be difficult to add or remove visual properties like `text-shadow`, `border-radius`, `transition`, or `box-shadow`. While the user could easily duplicate a simple button component and replace the styling, that might not be an option for complex components. Additionally, any forked components have a series of other SDLC related complexities
 - the sample component only implements `on:click` event forwarding. Ideally, the component user would be able to bind to any `button` events
 - there are currently no means to represent all event bindings without explicitly listing all of events
 - during runtime, `on:click` event listener is added even if consumer didn't request binding

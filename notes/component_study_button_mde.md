@@ -32,3 +32,4 @@
 @import "./component_study3_mde.md"
 @import "./component_study4_mde.md"
 @import "./component_study5_mde.md"
+@import "./component_study6_mde.md"

@@ -9,18 +9,11 @@
 
 <style>
   button {
-    --background-color-active: hwb(210deg 4% 15%);
-    --background-color-focus: hwb(210deg 25% 0%);
-    --background-color-hover: hwb(210deg 25% 0%);
-    --background-color: hwb(210deg 9% 0%);
-    --color: #ffffff;
-  }
-  button {
-    background-color: var(--background-color);
+    background-color: var(--background-color, hwb(210deg 9% 0%));
     border-radius: 2px;
     border: unset;
     box-shadow: 0 2px #0000000b;
-    color: var(--color);
+    color: var(--color, #ffffff);
     font-size: 14px;
     font-weight: 400;
     line-height: 24px;
@@ -33,12 +26,12 @@
     white-space: nowrap;
   }
   button:active {
-    background-color: var(--background-active);
+    background-color: var(--background-color-active, hwb(210deg 4% 15%));
   }
   button:focus {
-    background-color: var(--background-color-focus);
+    background-color: var(--background-color-focus, hwb(210deg 25% 0%));
   }
   button:hover {
-    background-color: var(--background-color-focus);
+    background-color: var(--background-color-hover, hwb(210deg 25% 0%));
   }
 </style>

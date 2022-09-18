@@ -1,0 +1,50 @@
+### S6: Methods of breaking encapsulation to apply global styling
+
+#### Questions
+
+#### Notes
+
+#### Code reference
+
+```css
+:root {
+  /* Typography */
+  --font-family: "Inter", sans-serif;
+  --font-size: 14px;
+  --line-height: 24px;
+
+  --font-weight-thin: 100;
+  --font-weight-extra-light: 200;
+  --font-weight-light: 300;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semi-bold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extra-bold: 800;
+  --font-weight-black: 900;
+
+  /* Colors */
+  --color-primary: hwb(210deg 9% 0%);
+  --color-primary-active: hwb(210deg 4% 15%);
+  --color-primary-focus: hwb(210deg 25% 0%);
+  --color-primary-hover: hwb(210deg 25% 0%);
+  --color-text-on-primary-bg: #ffffff;
+
+  /* Spatial System */
+  --spatial-unit-half: 4px;
+  --spatial-unit: 8px;
+  --spatial-unit-2x: 16px;
+  --spatial-unit-4x: 32px;
+
+  /* Shapes & Lines */
+  --border-radius: 2px;
+  --border-width: 1px;
+
+  /* Visual Effects */
+  --box-shadow: 0 2px #0000000b;
+  --text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+  --transition: 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+```
+
+@import "../src/examples/ButtonS6a.svelte"

@@ -30,13 +30,13 @@
     vertical-align: middle;
     white-space: nowrap;
   }
+  button:active {
+    background-color: #096dd9;
+    border-color: #096dd9;
+  }
   button:focus,
   button:hover {
     background-color: #40a9ff;
     border-color: #40a9ff;
-  }
-  button:active {
-    background-color: #096dd9;
-    border-color: #096dd9;
   }
 </style>

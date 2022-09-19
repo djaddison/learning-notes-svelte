@@ -47,4 +47,4 @@
 }
 ```
 
-@import "../src/examples/ButtonS6a.svelte"
+@import "../src/examples/ButtonS6a.svelte" {as="html"}

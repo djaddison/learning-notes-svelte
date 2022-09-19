@@ -26,6 +26,7 @@
 - what convention should be used to capture the intention when a designer wants to override a visual pacing convention of a design system?
   - when another person reads the code, how does that person know if this is an intentional override or a typo?
   - are there linting rules that might cover this?
+- are there definable units of measurement? Ex: 0.5su (spacial unit). Is this `rem`?
 
 #### Code reference
 
@@ -47,12 +48,12 @@ button {
   vertical-align: middle; /* common */
   white-space: nowrap; /* common */
 }
+button:active {
+  background-color: #096dd9; /* design system - darker color */
+}
 button:focus,
 button:hover {
   background-color: #40a9ff; /* design system - lighter color  */
-}
-button:active {
-  background-color: #096dd9; /* design system - darker color */
 }
 ```
 
@@ -87,11 +88,11 @@ button {
   background-color: #1890ff; /* Based on colors in the design system */
   color: #ffffff;
 }
+button:active {
+  background-color: #096dd9; /* darker color */
+}
 button:focus,
 button:hover {
   background-color: #40a9ff; /* lighter color  */
-}
-button:active {
-  background-color: #096dd9; /* darker color */
 }
 ```

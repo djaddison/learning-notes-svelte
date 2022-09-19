@@ -34,9 +34,9 @@
 
 #### Code reference
 
-@import "../src/examples/ButtonS1.svelte"
+@import "../src/examples/ButtonS1.svelte" {as="html"}
 
-```svelte
+```html
 <script>
 	import Button from "./Button.svelte";
 </script>

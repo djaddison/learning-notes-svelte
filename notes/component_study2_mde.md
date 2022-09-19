@@ -34,37 +34,39 @@
 
 ```css
 /* user agent button properties in chrome */
-align-items: flex-start;
-appearance: auto;
-background-color: buttonface;
-border-color: buttonborder;
-border-image: initial;
-border-style: outset;
-border-width: 2px;
-box-sizing: border-box;
-color: buttontext;
-cursor: default;
-display: inline-block;
-font-family: ;
-font-size: ;
-font-stretch: ;
-font-style: ;
-font-variant-caps: ;
-font-variant-east-asian: ;
-font-variant-ligatures: ;
-font-variant-numeric: ;
-font-weight: ;
-letter-spacing: normal;
-line-height: normal;
-margin: 0em;
-padding: 1px 6px;
-text-align: center;
-text-indent: 0px;
-text-rendering: auto;
-text-shadow: none;
-text-transform: none;
-word-spacing: normal;
-writing-mode: horizontal-tb !important;
+{
+  align-items: flex-start;
+  appearance: auto;
+  background-color: buttonface;
+  border-color: buttonborder;
+  border-image: initial;
+  border-style: outset;
+  border-width: 2px;
+  box-sizing: border-box;
+  color: buttontext;
+  cursor: default;
+  display: inline-block;
+  font-family: ;
+  font-size: ;
+  font-stretch: ;
+  font-style: ;
+  font-variant-caps: ;
+  font-variant-east-asian: ;
+  font-variant-ligatures: ;
+  font-variant-numeric: ;
+  font-weight: ;
+  letter-spacing: normal;
+  line-height: normal;
+  margin: 0em;
+  padding: 1px 6px;
+  text-align: center;
+  text-indent: 0px;
+  text-rendering: auto;
+  text-shadow: none;
+  text-transform: none;
+  word-spacing: normal;
+  writing-mode: horizontal-tb !important;
+}
 ```
 
 ```css
@@ -97,4 +99,4 @@ button {
 }
 ```
 
-@import "../src/examples/ButtonS2.svelte"
+@import "../src/examples/ButtonS2.svelte" {as="html"}

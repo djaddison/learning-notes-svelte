@@ -6,4 +6,4 @@
 
 #### Code reference
 
-@import "../src/examples/ButtonS5.svelte"
+@import "../src/examples/ButtonS5.svelte" {as="html"}

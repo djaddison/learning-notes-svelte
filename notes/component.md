@@ -160,7 +160,7 @@
 ####  Code reference
   
   
-```svelte
+```html
 <!-- Button Example 1: Fully encapsulated button -->
 <script>
   export let type = "button";
@@ -193,19 +193,19 @@
     vertical-align: middle;
     white-space: nowrap;
   }
+  button:active {
+    background-color: #096dd9;
+    border-color: #096dd9;
+  }
   button:focus,
   button:hover {
     background-color: #40a9ff;
     border-color: #40a9ff;
   }
-  button:active {
-    background-color: #096dd9;
-    border-color: #096dd9;
-  }
 </style>
 ```  
   
-```svelte
+```html
 <script>
 	import Button from "./Button.svelte";
 </script>
@@ -284,37 +284,39 @@
   
 ```css
 /* user agent button properties in chrome */
-align-items: flex-start;
-appearance: auto;
-background-color: buttonface;
-border-color: buttonborder;
-border-image: initial;
-border-style: outset;
-border-width: 2px;
-box-sizing: border-box;
-color: buttontext;
-cursor: default;
-display: inline-block;
-font-family: ;
-font-size: ;
-font-stretch: ;
-font-style: ;
-font-variant-caps: ;
-font-variant-east-asian: ;
-font-variant-ligatures: ;
-font-variant-numeric: ;
-font-weight: ;
-letter-spacing: normal;
-line-height: normal;
-margin: 0em;
-padding: 1px 6px;
-text-align: center;
-text-indent: 0px;
-text-rendering: auto;
-text-shadow: none;
-text-transform: none;
-word-spacing: normal;
-writing-mode: horizontal-tb !important;
+{
+  align-items: flex-start;
+  appearance: auto;
+  background-color: buttonface;
+  border-color: buttonborder;
+  border-image: initial;
+  border-style: outset;
+  border-width: 2px;
+  box-sizing: border-box;
+  color: buttontext;
+  cursor: default;
+  display: inline-block;
+  font-family: ;
+  font-size: ;
+  font-stretch: ;
+  font-style: ;
+  font-variant-caps: ;
+  font-variant-east-asian: ;
+  font-variant-ligatures: ;
+  font-variant-numeric: ;
+  font-weight: ;
+  letter-spacing: normal;
+  line-height: normal;
+  margin: 0em;
+  padding: 1px 6px;
+  text-align: center;
+  text-indent: 0px;
+  text-rendering: auto;
+  text-shadow: none;
+  text-transform: none;
+  word-spacing: normal;
+  writing-mode: horizontal-tb !important;
+}
 ```
   
 ```css
@@ -347,7 +349,7 @@ button {
 }
 ```
   
-```svelte
+```html
 <!-- Button S2: CSS simplification -->
 <script>
   export let type = "button";
@@ -375,12 +377,12 @@ button {
     vertical-align: middle;
     white-space: nowrap;
   }
+  button:active {
+    background-color: #096dd9;
+  }
   button:focus,
   button:hover {
     background-color: #40a9ff;
-  }
-  button:active {
-    background-color: #096dd9;
   }
 </style>
 ```  
@@ -402,8 +404,7 @@ button {
   
 - `button` height is often expressed as a combination of border + padding + line height
 - a design system often constrains the vertical pacing. ex: height of 32px
-- if `button` text (label) was allowed to flow to multiple lines, then `line-height` would impact the vertical pacing of the text
-- text that wraps would ideally have a `line-height` that maintains the vertical pacing convention of the design system. Out of context numbers would break the visual conventions. Ex: content that is in two side-by-side columns would potentially have misaligned vertical pacing of text
+- if `white-space: nowrap;` is removed, allowing text (label) to span multiple lines, text that wraps would ideally have a `line-height` that maintains the vertical pacing convention of the design system. Out of context numbers would break the visual conventions. Ex: content that is in two side-by-side columns would potentially have misaligned vertical pacing of text
 - text needs to be legible and accessible, so the relative value of `background-color` and `color` forms an important relationship between the two properties
 - a common design convention is to have `font-weight` be bolder when light color text is put on a dark color background
 - `box-shadow`, `text-shadow`, `transition` are highly stylistic and subjective. Their use is specific to the design atheistic of a given system and not universally applied
@@ -419,6 +420,7 @@ button {
 - what convention should be used to capture the intention when a designer wants to override a visual pacing convention of a design system?
   - when another person reads the code, how does that person know if this is an intentional override or a typo?
   - are there linting rules that might cover this?
+- are there definable units of measurement? Ex: 0.5su (spacial unit). Is this `rem`?
   
 ####  Code reference
   
@@ -441,12 +443,12 @@ button {
   vertical-align: middle; /* common */
   white-space: nowrap; /* common */
 }
+button:active {
+  background-color: #096dd9; /* design system - darker color */
+}
 button:focus,
 button:hover {
   background-color: #40a9ff; /* design system - lighter color  */
-}
-button:active {
-  background-color: #096dd9; /* design system - darker color */
 }
 ```
   
@@ -481,12 +483,12 @@ button {
   background-color: #1890ff; /* Based on colors in the design system */
   color: #ffffff;
 }
+button:active {
+  background-color: #096dd9; /* darker color */
+}
 button:focus,
 button:hover {
   background-color: #40a9ff; /* lighter color  */
-}
-button:active {
-  background-color: #096dd9; /* darker color */
 }
 ```
   
@@ -497,13 +499,42 @@ button:active {
 ####  Questions
   
   
+- what approaches can be taken to describe the color relationship between a base color and interactive states?
+  
 ####  Notes
   
+  
+- https://developer.mozilla.org/en-US/docs/Web/CSS/color_value/hwb
+- `hwb()` is hue, whiteness, and blackness
+- `hwb()` appears to be a simple was to express lighter and darker variations of colors
+- `lch()` or `lab()`
+  - would improve the perceptive feel, quality, or "sameness" of colors
+  - browser support is experimental
+  
+####  Future exploration
+  
+  
+- can `lch()` or `lab()` support be added through preprocessing?
+- do `hwb()` gradations or color variations feel perceptively similar?
+- https://www.smashingmagazine.com/2022/06/simplify-color-palette-css-color-mix/
   
 ####  Code reference
   
   
-```svelte
+```css
+button {
+  background-color: hwb(210deg 9% 0%); /* base */
+}
+button:active {
+  background-color: hwb(210deg 4% 15%); /* dark */
+}
+button:focus,
+button:hover {
+  background-color: hwb(210deg 25% 0%); /* light */
+}
+```
+  
+```html
 <!-- Button S4: Expressing colors using hwb() -->
 <script>
   export let type = "button";
@@ -531,12 +562,12 @@ button:active {
     vertical-align: middle;
     white-space: nowrap;
   }
+  button:active {
+    background: hwb(210deg 4% 15%);
+  }
   button:focus,
   button:hover {
     background: hwb(210deg 25% 0%);
-  }
-  button:active {
-    background: hwb(210deg 4% 15%);
   }
 </style>
 ```  
@@ -554,7 +585,7 @@ button:active {
 ####  Code reference
   
   
-```svelte
+```html
 <!-- Button S5: Fully encapsulated button with custom properties -->
 <script>
   export let type = "button";
@@ -648,7 +679,7 @@ button:active {
 }
 ```
   
-```svelte
+```html
 <!-- Button S6a: Using global custom properties -->
 <script>
   export let type = "button";

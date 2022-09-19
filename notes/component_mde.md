@@ -5,7 +5,7 @@
 - prioritize web standards
 - it should be easy for a developer with little knowledge of the component library to create a new component or derive from an existing one
 - prioritize simplification and readability
-- reexamine custom/native web components. On first learning they appear overly complicated and the code is verbose
+- reexamine custom/native web components. On first learning they appear overly complicated and the code is verbose. With advancements in the space, it would be worth revisiting
 
 ## Question / Theory / Angle
 

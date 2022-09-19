@@ -11,8 +11,7 @@
 
 - `button` height is often expressed as a combination of border + padding + line height
 - a design system often constrains the vertical pacing. ex: height of 32px
-- if `button` text (label) was allowed to flow to multiple lines, then `line-height` would impact the vertical pacing of the text
-- text that wraps would ideally have a `line-height` that maintains the vertical pacing convention of the design system. Out of context numbers would break the visual conventions. Ex: content that is in two side-by-side columns would potentially have misaligned vertical pacing of text
+- if `white-space: nowrap;` is removed, allowing text (label) to span multiple lines, text that wraps would ideally have a `line-height` that maintains the vertical pacing convention of the design system. Out of context numbers would break the visual conventions. Ex: content that is in two side-by-side columns would potentially have misaligned vertical pacing of text
 - text needs to be legible and accessible, so the relative value of `background-color` and `color` forms an important relationship between the two properties
 - a common design convention is to have `font-weight` be bolder when light color text is put on a dark color background
 - `box-shadow`, `text-shadow`, `transition` are highly stylistic and subjective. Their use is specific to the design atheistic of a given system and not universally applied

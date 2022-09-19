@@ -25,11 +25,11 @@
     vertical-align: middle;
     white-space: nowrap;
   }
+  button:active {
+    background: hwb(210deg 4% 15%);
+  }
   button:focus,
   button:hover {
     background: hwb(210deg 25% 0%);
-  }
-  button:active {
-    background: hwb(210deg 4% 15%);
   }
 </style>
